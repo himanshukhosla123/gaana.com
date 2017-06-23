@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="assests/css/bootstrapcss/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="assests/css/animate.css">-->
+      <link rel="stylesheet" href="src/owl.carousel.min.css">
+    <link rel="stylesheet" href="assests/css/main.css">
+    <link rel="stylesheet" href="assests/css/font-awesome.min.css">
+<!--    <script src="assests/js/ganna.json"></script>-->
+    
+</head>
+<body>
+<aside id="songs">
+ <div class="container">
+            <div class="card_box">
+                <div class="music_list_type clearfix">
+                    <div class="col-xs-6">
+                        <h4><a href="#">Top Charts</a></h4> </div>
+                    <div class="col-xs-6 text_right">
+                        <h5><a href="#" class="viewall">View All<i class="fa fa-angle-right" aria-hidden="true"></i></a></h5> </div>
+                </div>
+                
+                <div class="songs_list owl-carousel owl-theme">
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/ganna_top50.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+              Ganna Top 50 
+              </span> </div>
+                    </div></div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> 
+                           <img src="assests/images/top_50.jpg" class="img-responsive" alt="">
+                           <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+               Bollywood top 50
+               </span> </div></div>
+                    </div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/new_20.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+             new hot 20 hondi songs
+             </span> </div>
+                    </div></div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/bollylove_top5.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+              Bollywood love 2017
+              </span> </div>
+                    </div></div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/internation_top5.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+              new 20 international songs 
+              </span> </div>
+                    </div></div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/bollylove_top5.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+              latest love bollywood 2017 songs
+              </span> </div>
+                    </div></div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/internation_top5love.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+              today top 5 international love songs
+              </span> </div>
+                    </div></div>
+                    <div class="item"><div class="songs_box">
+                        <div class="thumb clearfix song_image"> <img src="assests/images/hindi_top5.jpg" class="img-responsive" alt="">
+                            <div class="play_icon song_image"> <i class="fa fa-play" aria-hidden="true"></i> </div>
+                        </div>
+                        <div class="description"><span>
+              today hindi top 5  
+              </span> </div>
+                    </div></div>
+<!--
+                <div class="owl-nav">
+                    <div class="owl-prev"><a href="#" class="left_scroll"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></div>   
+                     <div class="owl-next">
+                <a href="#" class="right_scroll"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> </a></div>
+            
+            </div>
+-->
+                </div> 
+                
+            </div>
+ </div>
+</aside>         
+</body>
+
+<script src="assests/js/jquery-3.2.1.min.js"></script>
+<!--    <script src="assests/js/main.js"></script>-->
+    <script src="src/owl.carousel.min.js"></script>
+<!--    <link rel="stylesheet" href="assests/css/main.css">-->
+<!--    <script src="assests/js/generator.js"></script>-->
+   <script>
+       $(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+});
+    
+       $(".owl-next").html('<i class="fa fa-angle-double-right" aria-hidden="true"></i>');
+       $(".owl-prev").html('<i class="fa fa-angle-double-left" aria-hidden="true"></i>');   
+       $(".owl-next").addClass("right_scroll");
+       $(".owl-prev").addClass("left_scroll");
+       document.getElementsByClassName("owl-item").style.width='136px';
+           
+    });
+//       $(".owl-next").html('<a href="#" class="right_scroll"> <i class="fa fa-angle-double-right" aria-hidden="true"></i> </a>');
+//       $(".owl-prev").html('<a href="#" class="left_scroll"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>');
+//       $(".owl-next").addClass("right_scroll");
+    </script>
+</html>
