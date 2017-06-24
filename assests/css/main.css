@@ -6,8 +6,10 @@ body{
     background-color: #21242E;
     margin-top:60px;
     position: relative;
+/*    -webkit-overflow-scrolling:touch;*/
 }
 
+/*body-webkit-overflow-scrolling: touch;*/
 
 *::-webkit-scrollbar-track
 {
@@ -103,6 +105,7 @@ nav ul li:hover{
 .nav2{
 /*    padding-left:56.5%; */
     float:right;
+    
 }
 .nav2 ul li{
     padding:20px 20px;

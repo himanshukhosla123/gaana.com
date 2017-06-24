@@ -16,7 +16,7 @@ function addListenters(){
         manageDescription($(this));});
     
     $(".play_icon").click(function(){
-        console.log($(this)[0].parentNode);
+        managePlayIcon($(this));
     });
     
     $(window).scroll(manageSearchBox);
@@ -34,17 +34,25 @@ function addListenters(){
    });
     document.getElementById("audio_player").addEventListener("timeupdate",updatePlayerTime);
     
-    $(".songs_list").sortable();
+//    $(".songs_list").sortable();
 }
 
 
 function updatePlayerTime(){
 //    console.log(audioPlayer.currentTime);
     $("#current_time").html(getTimeString(audioPlayer.currentTime));
+    console.log(audioPlayer.currentTime+" "+audioPlayer.currentTime)
     $("#music_slider")[0].value=parseInt((audioPlayer.currentTime/audioPlayer.duration)*100);
 //    console.log(parseInt((audioPlayer.currentTime/audioPlayer.duration)*100));
 //    console.log($("#music_slider")[0].value);
     $("#end_time").html(getTimeString(audioPlayer.duration));
+}
+
+
+
+function managePlayIcon(obj){
+    obj=JSON.parse(obj[0].parentNode.parentNode.children[0].innerHTML);
+    managePlayer(obj);
 }
 
 
@@ -94,20 +102,18 @@ function manageResponsiveElements(){
 }
 function manageDescription(obj){
     obj=JSON.parse(obj[0].parentNode.children[0].innerHTML);
-    if(obj.playlist_type===false){
-    var tempobj=[obj];}
-    else{
-        tempobj=obj.playlist;
-    }
-//    console.log(currentPlaylist);
-    managePlayer(tempobj);    
-    $("#player").show(1000);         
+    managePlayer(obj);            
     }
 
 function managePlayer(obj){
+    if(obj.playlist_type===false){
+    obj =[obj];}
+    else{
+    obj=obj.playlist;
+    }
     player_manager(obj[0]);
     addToQueue(obj);
-    
+    $("#player").show(1000);
 }
 
 function manageQueueLi(obj){
