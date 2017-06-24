@@ -6,10 +6,10 @@ body{
     background-color: #21242E;
     margin-top:60px;
     position: relative;
-/*    -webkit-overflow-scrolling:touch;*/
+    -webkit-overflow-scrolling:touch;
 }
 
-/*body-webkit-overflow-scrolling: touch;*/
+body::-webkit-overflow-scrolling:touch;
 
 *::-webkit-scrollbar-track
 {
