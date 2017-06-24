@@ -24,13 +24,16 @@ function addListenters(){
     manageResponsiveElements();
     
    $("#search_box").click(function(){
+       if($(window).width()<463&&!isVisibleSearchBox){
+           isVisibleSearchBox=false;
+       }
        if(isVisibleSearchBox){
        $("#search_music").hide();
        isVisibleSearchBox=false;}
        else
-        {    isVisibleSearchBox=true;
-               $("#search_music").show(500);
-           }
+        {   isVisibleSearchBox=true;
+            $("#search_music").show(500);
+        }
    });
     document.getElementById("audio_player").addEventListener("timeupdate",updatePlayerTime);
     
@@ -39,12 +42,8 @@ function addListenters(){
 
 
 function updatePlayerTime(){
-//    console.log(audioPlayer.currentTime);
     $("#current_time").html(getTimeString(audioPlayer.currentTime));
-    console.log(audioPlayer.currentTime+" "+audioPlayer.currentTime)
     $("#music_slider")[0].value=parseInt((audioPlayer.currentTime/audioPlayer.duration)*100);
-//    console.log(parseInt((audioPlayer.currentTime/audioPlayer.duration)*100));
-//    console.log($("#music_slider")[0].value);
     $("#end_time").html(getTimeString(audioPlayer.duration));
 }
 
@@ -65,14 +64,15 @@ function manageAudioForwarding(value){
     
 }
 function manageSearchBox(){
- if($(window).scrollTop()>70){
+ if($(window).scrollTop()>70||$(window).width()<464){
      $("#search_box").show();
      $("#search_music").hide();
- }
-    else{
+    }
+      else{
         $("#search_box").hide();
         $("#search_music").show();
     }
+    
     
 }
 
@@ -87,17 +87,36 @@ function manageResponsiveElements(){
             $("#volume_box").show();
         }
         
+//        $("#queueUl").height();    
+        var temp=$(window).height()-70;
+//      $("#playlist_box").height(temp-60);
         
         if($("body").width()<=463){
             $("#search_music .search").html('<i class="fa fa-search" area-hidden="true"></i>');
+            $("#search_box").show();
+            $("#playnext , #playprev").hide();
+            $(".footer .queue").css({"top":"-30px",
+                                     "left":"0px",
+                                     "width":"100%",
+                                     "height":""+temp+"px"});
+            $("#playlist_box").height(temp-70);
         }
         else{
             $("#search_music .search").html('<i class="fa fa-search"></i>Search');
+            $("#search_box").hide();
+            $(".footer .queue").css({"top":"-30px",
+                            "left":"19%",
+                            "width":"65%",
+                            "height":"450px"});
+            $("#playlist_box").height(350);
+            $("#playnext , #playprev").show();
+            
         }
        if($("body").width()<=360){
-            $(".player_song_details").hide(); }
+//            $(".player_song_details").hide(); 
+       }
         else{
-        $(".player_song_details").show();
+//        $(".player_song_details").show();
         }
 }
 function manageDescription(obj){
@@ -134,14 +153,15 @@ function manageQueueLi(obj){
 function toggleQueueMenu(){
     console.log("in toggle")
     var queueList=document.getElementById("queue_list");
-    var queue=document.getElementById("queue");
-    queue.classList.toggle("toggle_queuelist");
+    var temp=$("#queue").height()-40;
     if(queue_up===false)
     {
+    $("#queue").css("transform","translateY(-"+temp+"px)");    
     queueList.innerHTML='Close Queue<i class="fa fa-angle-double-down" aria-hidden="true"></i>';
     queue_up=true;
     }
     else{
+        $("#queue").css("transform","translateY(0px)");
         queueList.innerHTML='Open Queue<i class="fa fa-angle-double-up" aria-hidden="true"></i>';
         queue_up=false;
     }
