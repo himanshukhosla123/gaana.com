@@ -16,42 +16,44 @@ function addListenters(){
         manageDescription($(this));});
     
     $(".play_icon").click(function(){
-        managePlayIcon($(this));
+//        console.log();
+        obj=JSON.parse($(this)[0].parentNode.parentNode.children[0].innerHTML);
+        managePlayer(obj);
     });
     
     $(window).scroll(manageSearchBox);
-    $(window).resize(manageResponsiveElements);
+    $(window).resize(function(event){
+    if(queue_up===true){
+       toggleQueueMenu();
+       }
+        manageResponsiveElements();
+    });
     manageResponsiveElements();
     
    $("#search_box").click(function(){
        if($(window).width()<463&&!isVisibleSearchBox){
-           isVisibleSearchBox=false;
+            isVisibleSearchBox=false;
        }
+       
        if(isVisibleSearchBox){
        $("#search_music").hide();
        isVisibleSearchBox=false;}
        else
-        {   isVisibleSearchBox=true;
-            $("#search_music").show(500);
-        }
+        {    isVisibleSearchBox=true;
+               $("#search_music").show(500);
+           }
    });
     document.getElementById("audio_player").addEventListener("timeupdate",updatePlayerTime);
     
-//    $(".songs_list").sortable();
+    $(".songs_list").sortable();
 }
 
 
 function updatePlayerTime(){
+//    console.log(audioPlayer.currentTime);
     $("#current_time").html(getTimeString(audioPlayer.currentTime));
     $("#music_slider")[0].value=parseInt((audioPlayer.currentTime/audioPlayer.duration)*100);
     $("#end_time").html(getTimeString(audioPlayer.duration));
-}
-
-
-
-function managePlayIcon(obj){
-    obj=JSON.parse(obj[0].parentNode.parentNode.children[0].innerHTML);
-    managePlayer(obj);
 }
 
 
@@ -67,17 +69,37 @@ function manageSearchBox(){
  if($(window).scrollTop()>70||$(window).width()<464){
      $("#search_box").show();
      $("#search_music").hide();
-    }
-      else{
+ }
+    else{
         $("#search_box").hide();
         $("#search_music").show();
     }
     
-    
 }
 
 function manageResponsiveElements(){
-//        console.log($("body").width());
+    
+         var temp=$(window).height()-70;
+      if($(window).width()<=463&&$(window).height()>=$(window).width()||
+        $(window).height()<=463&&$(window).height()<=$(window).width())
+        { $(".footer .queue").css({"top":"-30px",
+                                      "left":"0px",
+                                      "width":"100%",
+                           "height":""+temp+"px"});
+             $("#playlist_box").height(temp-80);}
+    else
+    {$(".footer .queue").css({"top":"-30px",
+                             "left":"19%",
+                             "width":"65%",
+                             "height":"450px"});
+             $("#playlist_box").height(370);}
+         
+//          var queuelist_margin=$("#queue").width();
+//         queuelist_margin-=$("#queue_list").innerWidth();
+//        console.log(queuelist_margin);
+//          $("#queue").css("left",""+(queue_margin/2)+"px");
+//          $("#queue_list").css("margin-left",""+(queuelist_margin)/2+"px");
+              
         if($("body").width()<=767){
             $("#login a").html('<i class="fa fa-user" area-hidden="true"></i>');
             $("#volume_box").hide();
@@ -86,53 +108,40 @@ function manageResponsiveElements(){
             $("#login a").html("Login/Sign up");
             $("#volume_box").show();
         }
-        
-//        $("#queueUl").height();    
-        var temp=$(window).height()-70;
-//      $("#playlist_box").height(temp-60);
-        
-        if($("body").width()<=463){
+    
+
+    if($("body").width()<=463){
             $("#search_music .search").html('<i class="fa fa-search" area-hidden="true"></i>');
-            $("#search_box").show();
-            $("#playnext , #playprev").hide();
-            $(".footer .queue").css({"top":"-30px",
-                                     "left":"0px",
-                                     "width":"100%",
-                                     "height":""+temp+"px"});
-            $("#playlist_box").height(temp-80);
+        $("#search_box").show();
+             $("#playnext , #playprev").hide();
         }
         else{
             $("#search_music .search").html('<i class="fa fa-search"></i>Search');
-            $("#search_box").hide();
-            $(".footer .queue").css({"top":"-30px",
-                            "left":"19%",
-                            "width":"65%",
-                            "height":"450px"});
-            $("#playlist_box").height(370);
-            $("#playnext , #playprev").show();
+             $("#search_box").hide();
+             $("#playnext , #playprev").show();
+            
             
         }
-       if($("body").width()<=360){
-//            $(".player_song_details").hide(); 
-       }
-        else{
+//       if($("body").width()<=360){
+//            $(".player_song_details").hide(); }
+//        else{
 //        $(".player_song_details").show();
-        }
+//        }
 }
 function manageDescription(obj){
     obj=JSON.parse(obj[0].parentNode.children[0].innerHTML);
-    managePlayer(obj);            
+    managePlayer(obj);    
     }
 
 function managePlayer(obj){
     if(obj.playlist_type===false){
-    obj =[obj];}
+     obj=[obj];}
     else{
-    obj=obj.playlist;
+        obj=obj.playlist;
     }
     player_manager(obj[0]);
     addToQueue(obj);
-    $("#player").show(1000);
+    $("#player").show(1000);             
 }
 
 function manageQueueLi(obj){
@@ -153,15 +162,15 @@ function manageQueueLi(obj){
 function toggleQueueMenu(){
     console.log("in toggle")
     var queueList=document.getElementById("queue_list");
+    var queue=document.getElementById("queue");
+//    queue.classList.toggle("toggle_queuelist");
     var temp=$("#queue").height()-20;
     if(queue_up===false)
-    {
-    $("#queue").css("transform","translateY(-"+temp+"px)");    
+    { $("#queue").css("transform","translateY(-"+temp+"px)");
     queueList.innerHTML='Close Queue<i class="fa fa-angle-double-down" aria-hidden="true"></i>';
     queue_up=true;
     }
-    else{
-        $("#queue").css("transform","translateY(0px)");
+    else{    $("#queue").css("transform","translateY(0px)");
         queueList.innerHTML='Open Queue<i class="fa fa-angle-double-up" aria-hidden="true"></i>';
         queue_up=false;
     }
@@ -217,8 +226,11 @@ function addToQueue(arr){
 
 
 function managePrevLi(){
-     
+     console.log($("#playlist_box")[0].children);
+//    var t=currentPlaylist==[]?0:[($("#playlist_box")[0].children)].findIndex(function(varObj){return JSON.parse(varObj.children[0].innerHTML).id===currentSongObj.id;});
+    
     var t=currentPlaylist==[]?0:currentPlaylist.findIndex(function(varObj){return varObj.id===currentSongObj.id;});
+    console.log(t);
     current=document.getElementById("playlist_box").children[t];
 //    console.log(current);
     currentImage=current.children[1].children[0].src;
