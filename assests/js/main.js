@@ -108,7 +108,7 @@ function manageResponsiveElements(){
                             "left":"19%",
                             "width":"65%",
                             "height":"450px"});
-            $("#playlist_box").height(350);
+            $("#playlist_box").height(370);
             $("#playnext , #playprev").show();
             
         }
