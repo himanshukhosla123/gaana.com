@@ -99,7 +99,7 @@ function manageResponsiveElements(){
                                      "left":"0px",
                                      "width":"100%",
                                      "height":""+temp+"px"});
-            $("#playlist_box").height(temp-70);
+            $("#playlist_box").height(temp-80);
         }
         else{
             $("#search_music .search").html('<i class="fa fa-search"></i>Search');
@@ -153,7 +153,7 @@ function manageQueueLi(obj){
 function toggleQueueMenu(){
     console.log("in toggle")
     var queueList=document.getElementById("queue_list");
-    var temp=$("#queue").height()-40;
+    var temp=$("#queue").height()-20;
     if(queue_up===false)
     {
     $("#queue").css("transform","translateY(-"+temp+"px)");    
