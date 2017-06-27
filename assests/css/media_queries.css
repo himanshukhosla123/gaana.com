@@ -153,10 +153,10 @@
     .search .fa{margin:0px;
     font-size: 18px;} 
     .open_queue{
-        margin-left:30%;
+        margin-left:35%;
     }
     .player_song_details{
-        min-width:100px;
+/*        min-width:100px;*/
     }
     .footer .queue{
          left:0px;
