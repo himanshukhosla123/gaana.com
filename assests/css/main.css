@@ -303,6 +303,7 @@ box-sizing: border-box;}
     padding-bottom:40px;
     border-bottom:1px solid #B2B2B2;
     position: relative;
+	   -webkit-overflow-scrolling: touch;
 }
 
 
@@ -339,6 +340,8 @@ color: white;}
     flex-wrap:nowrap;
     overflow-x:scroll;
     max-width: 100%;
+	   -webkit-overflow-scrolling: touch;
+	
 }
 
 .songs_box{
