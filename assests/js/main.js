@@ -49,7 +49,7 @@ function addListenters(){
     audioPlayer.oncanplay=function(){
         $("#playorpause").html('<i class="fa fa-pause" aria-hidden="true"></i>');
     };
-    $(".songs_list").sortable();
+
 }
 
 
