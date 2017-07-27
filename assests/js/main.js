@@ -224,7 +224,6 @@ function addToQueue(arr){
         li=generateLi(arr[i]);
         div.appendChild(li);
     }
-    $("#playlist_box").sortable();
     managePrevLi();
 }
 
