@@ -1,0 +1,9 @@
+@font-face {
+  font-family:"Proxima Nova";
+  src:url("https://static.ambitionbox.com/fonts/proxima-nova/400.woff2") format("woff2"),
+  url("https://static.ambitionbox.com/fonts/proxima-nova/400.woff") format("woff"),
+  url("https://static.ambitionbox.com/fonts/proxima-nova/400.otf") format("opentype");
+  font-display:swap;
+  font-style:normal;
+  font-weight:400;
+}
