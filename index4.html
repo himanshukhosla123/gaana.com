@@ -27,8 +27,8 @@
                     let position = await getPosition();
                     
                     pushToLog('got permission '+ position.coords.latitude);
-                    // latitude.value = position?.coords?.latitude;
-                    // longitude.value = position?.coords?.longitude;
+                    latitude = position?.coords?.latitude;
+                    longitude = position?.coords?.longitude;
                 } catch (err) {
                     pushToLog('error in position' + err.message);
                     console.log("error in getPosition", err);
