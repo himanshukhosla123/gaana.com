@@ -46,32 +46,32 @@
     function getPosition() {
         return new Promise((resolve, reject) => {
             try {
-                    // return navigator.geolocation.getCurrentPosition(resolve, function() {
-                    //      pushToLog('reject callback');
-                    //     reject({});
-                    //   },{ 
-                    //   enableHighAccuracy: true,
-                    //   timeout: 3000,
-                    //   maximumAge: 0
-                    // });
+                    return navigator.geolocation.getCurrentPosition(resolve, function() {
+                            pushToLog('reject callback');
+                            reject({});
+                      },{ 
+                          enableHighAccuracy: true,
+                          timeout: 3000,
+                          maximumAge: 0
+                    });
             
     
-                 const watchId = navigator.geolocation.watchPosition(
-                    (position) => {
-                        // Clear the watch after getting the first position
-                        navigator.geolocation.clearWatch(watchId);
-                        resolve(position);
-                    },
-                    (error) => {
-                        navigator.geolocation.clearWatch(watchId);
-                        reject(error);
-                    },
-                    { 
-                        enableHighAccuracy: true,
-                        timeout: 3000,
-                        maximumAge: 0
-                    }
-                    );
+                 // const watchId = navigator.geolocation.watchPosition(
+                 //    (position) => {
+                 //        // Clear the watch after getting the first position
+                 //        navigator.geolocation.clearWatch(watchId);
+                 //        resolve(position);
+                 //    },
+                 //    (error) => {
+                 //        navigator.geolocation.clearWatch(watchId);
+                 //        reject(error);
+                 //    },
+                 //    { 
+                 //        enableHighAccuracy: true,
+                 //        timeout: 3000,
+                 //        maximumAge: 0
+                 //    }
+                 //    );
             } catch (err) {
                 pushToLog(err.message)
             }
