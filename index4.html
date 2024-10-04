@@ -47,7 +47,7 @@
                 return navigator.geolocation.getCurrentPosition(resolve, function(){
                      pushToLog('reject callback');
                     reject({});
-                  }, 
+                  },{ 
                   enableHighAccuracy: true,
                   timeout: 3000,
                   maximumAge: 0
