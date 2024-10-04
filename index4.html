@@ -8,6 +8,8 @@
 
 <script>
     var arr = [];
+    var latitude = null;
+    var longitude = null;
 
     async function getLocPermission() {
         try {
@@ -31,7 +33,7 @@
                     pushToLog('error in position' + err.message);
                     console.log("error in getPosition", err);
                 }
-                if (latitude.value == null || longitude.value == null) {
+                if (latitude == null || longitude == null) {
                      pushToLog('null lat log');
                 }
             }
