@@ -3,15 +3,14 @@
   <body>
     <h1>App open test</h1>
     <button onclick="openApp()">
-      Open App in 3.2.1
+      Open App in 3.2.1 cta
     </button>
     
     <script>
+      function openApp(){
+      	  window.open('https://angel-one.onelink.me/Wjgr/bmuomdyn', '_blank');
+      }
     	window.addEventListener('load', function() {
-          function openApp(){
-      	      window.open('https://angel-one.onelink.me/Wjgr/bmuomdyn', '_blank');
-      	  }
-
           setTimeout(openApp, 3000);
         });
     </script>
