@@ -1,19 +1,59 @@
-
 <html>
-  <head></head>
-  <body>
-    <h1>App open test</h1>
-    <button onclick="openApp()">
-      Open App in 3.2.1 cta
-    </button>
-    
-    <script>
-      function openApp(){
-      	  window.open('https://angel-one.onelink.me/Wjgr/bmuomdyn', '_self');
-      }
-    	window.addEventListener('load', function() {
-          setTimeout(openApp, 3000);
-        });
-    </script>
-  </body>
+    <body>
+        <button onclick="getLocPermission()">Click me for location</button>
+        <hr />
+        <p id="logs"></p>
+    </body>
 </html>
+
+<script>
+    var arr = [];
+
+    async function getLocPermission() {
+        try {
+            arr = [];
+            const locationPermission = await navigator.permissions.query({
+                name: "geolocation",
+            });
+            
+            pushToLog(locationPermission.state);
+            
+            if (locationPermission.state === "denied") {
+                pushToLog('permission denied');
+            } else {
+                try {
+                    let position = await getPosition();
+                    
+                    pushToLog('got permission '+ position.coords.latitude);
+                    // latitude.value = position?.coords?.latitude;
+                    // longitude.value = position?.coords?.longitude;
+                } catch (err) {
+                    pushToLog('error in position' + err.message);
+                    console.log("error in getPosition", err);
+                }
+                if (latitude.value == null || longitude.value == null) {
+                     pushToLog('null lat log');
+                }
+            }
+            // locationPermission.onchange = updateHasCamsAndGeoAccess(locationPermission, false);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    function getPosition() {
+        return new Promise((resolve, reject) => {
+            try {
+                return navigator.geolocation.getCurrentPosition(resolve, reject);
+            } catch (err) {
+                pushToLog(err.message)
+            }
+        });
+    }
+
+    function pushToLog(str) {
+        arr.push(str);
+        document.getElementById('logs').innerHTML = arr.join(' , ');
+        
+    }
+</script>
