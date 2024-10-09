@@ -116,24 +116,25 @@
               video.play();
 
                 const track = stream.getVideoTracks()[0];
-              track
-                .applyConstraints({
-                    focusMode: 'continuous',
-                    width: {
-        				ideal: 3060
-        			},
-        			height: {
-        				ideal: 3060
-        			}
-                    // advanced: [{ torch: true  }],
-                })
-                .then(() => {
+                alert(JSON.stringify(stream.getVideoTracks()));
+           //    track
+           //      .applyConstraints({
+           //          focusMode: 'continuous',
+           //          width: {
+        			// 	ideal: 3060
+        			// },
+        			// height: {
+        			// 	ideal: 3060
+        			// }
+           //          // advanced: [{ torch: true  }],
+           //      })
+           //      .then(() => {
                     
-                })
-                .catch((e) => {
-                    alert('fail -'+ err.message);
-                  // The constraints could not be satisfied by the available devices.
-                });
+           //      })
+           //      .catch((e) => {
+           //          alert('fail -'+ err.message);
+           //        // The constraints could not be satisfied by the available devices.
+           //      });
             })
             .catch((err) => {
               console.error(`An error occurred: ${err}`);
