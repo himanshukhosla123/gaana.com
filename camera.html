@@ -107,7 +107,8 @@
         			},
         			facingMode: { exact: 'environment' },
         			// torch: true,
-        			focusMode: 'continuous'
+        			focusMode: 'continuous',
+                    resizeMode: "crop-and-scale"
                 }, 
                 audio: false 
             })
@@ -116,7 +117,7 @@
               video.play();
 
                 const track = stream.getVideoTracks()[0];
-                alert(JSON.stringify(stream.getVideoTracks()));
+                alert(stream.getTracks()));
            //    track
            //      .applyConstraints({
            //          focusMode: 'continuous',
