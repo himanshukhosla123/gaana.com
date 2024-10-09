@@ -100,42 +100,20 @@
             .getUserMedia({ 
                 video: {
                   width: {
-        				ideal: 3000
+        				ideal: 3240
         			},
         			height: {
-        				ideal: 3000
+        				ideal: 2160
         			},
         			facingMode: { exact: 'environment' },
         			// torch: true,
-        			focusMode: 'continuous',
-                    resizeMode: "crop-and-scale"
+        			focusMode: 'continuous'
                 }, 
                 audio: false 
             })
             .then((stream) => {
               video.srcObject = stream;
               video.play();
-
-                const track = stream.getVideoTracks()[0];
-                alert(stream.getTracks());
-              track
-                .applyConstraints({
-                    focusMode: 'continuous',
-           //          width: {
-        			// 	ideal: 3060
-        			// },
-        			// height: {
-        			// 	ideal: 3060
-        			// }
-                    advanced: [{ torch: true  }],
-                })
-                .then(() => {
-                    
-                })
-                .catch((e) => {
-                    alert('fail -'+ err.message);
-                  // The constraints could not be satisfied by the available devices.
-                });
             })
             .catch((err) => {
               console.error(`An error occurred: ${err}`);
