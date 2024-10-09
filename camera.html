@@ -124,14 +124,14 @@
         			},
         			height: {
         				ideal: 3060
-        			},
-                    advanced: [{ torch: true  }],
+        			}
+                    // advanced: [{ torch: true  }],
                 })
                 .then(() => {
                     
                 })
                 .catch((e) => {
-                    alert('fail');
+                    alert('fail -'+ err.message);
                   // The constraints could not be satisfied by the available devices.
                 });
             })
