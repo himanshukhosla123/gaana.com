@@ -100,14 +100,14 @@
             .getUserMedia({ 
                 video: {
                   width: {
-        						ideal: 3000
-        					},
-        					height: {
-        						ideal: 2160
-        					},
-        					facingMode: { exact: 'environment' },
-        					// torch: true,
-        					focusMode: 'continuous'
+        				ideal: 3000
+        			},
+        			height: {
+        				ideal: 2160
+        			},
+        			facingMode: { exact: 'environment' },
+        			// torch: true,
+        			focusMode: 'continuous'
                 }, 
                 audio: false 
             })
@@ -123,7 +123,9 @@
             "canplay",
             (ev) => {
               if (!streaming) {
-                height = video.videoHeight / (video.videoWidth / width);
+                height = video.videoHeight;
+                width = video.videoWidth;
+                    // (video.videoWidth / width);
       
                 // Firefox currently has a bug where the height can't be read from
                 // the video, so we will make assumptions if this happens.
