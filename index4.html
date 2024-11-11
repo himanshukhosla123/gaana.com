@@ -1,86 +1,174 @@
 <html>
-    <body>
-        <button onclick="getLocPermission()">Click me for location</button>
-        <hr />
-        <p id="logs"></p>
-    </body>
+	<body>
+		<button onclick="getLocPermission()">Click me for location</button>
+		<button onclick="getCameraPermission()">Click me for camera permission</button>
+		<hr />
+		<p id="logs"></p>
+	</body>
 </html>
 
 <script>
-    var arr = [];
-    var latitude = null;
-    var longitude = null;
+	var arr = [];
+	var latitude = null;
+	var longitude = null;
 
-    async function getLocPermission() {
-        try {
-            arr = [];
-            const locationPermission = await navigator.permissions.query({
-                name: "geolocation",
-            });
-            
-            pushToLog(locationPermission.state);
-            
-            if (locationPermission.state === "denied") {
-                pushToLog('permission denied');
-            } else {
-                try {
-                    let position = await getPosition();
-                    
-                    pushToLog('got permission '+ position.coords.latitude);
-                    latitude = position?.coords?.latitude;
-                    longitude = position?.coords?.longitude;
-                } catch (err) {
-                    pushToLog('error in position' + err.message);
-                    console.log("error in getPosition", err);
-                }
-                if (latitude == null || longitude == null) {
-                     pushToLog('null lat log');
-                }
-            }
-            // locationPermission.onchange = updateHasCamsAndGeoAccess(locationPermission, false);
-        } catch (err) {
-            console.log(err);
-        }
-    }
+	var cameraPermission = false;
 
-    function getPosition() {
-        return new Promise((resolve, reject) => {
-            try {
-                    return navigator.geolocation.getCurrentPosition(resolve, function() {
-                            pushToLog('reject callback');
-                            reject({});
-                      },{ 
-                          enableHighAccuracy: true,
-                          timeout: 3000,
-                          maximumAge: 0
-                    });
-            
-    
-                 // const watchId = navigator.geolocation.watchPosition(
-                 //    (position) => {
-                 //        // Clear the watch after getting the first position
-                 //        navigator.geolocation.clearWatch(watchId);
-                 //        resolve(position);
-                 //    },
-                 //    (error) => {
-                 //        navigator.geolocation.clearWatch(watchId);
-                 //        reject(error);
-                 //    },
-                 //    { 
-                 //        enableHighAccuracy: true,
-                 //        timeout: 3000,
-                 //        maximumAge: 0
-                 //    }
-                 //    );
-            } catch (err) {
-                pushToLog(err.message)
-            }
-        });
-    }
+	function getBrowserName() {
+		// eslint-disable-next-line no-unused-vars
+		var browserName = '';
 
-    function pushToLog(str) {
-        arr.push(str);
-        document.getElementById('logs').innerHTML = arr.join(' , ');
-        
-    }
+		// The order matters here, and this may report false positives for unlisted browsers.
+
+		if (navigator.userAgent.indexOf('Firefox') > -1) {
+			browserName = 'Mozilla Firefox';
+			// "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
+		} else if (navigator.userAgent.indexOf('SamsungBrowser') > -1) {
+			browserName = 'Samsung Internet';
+			// "Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-G955F Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/9.4 Chrome/67.0.3396.87 Mobile Safari/537.36
+		} else if (
+			navigator.userAgent.indexOf('Opera') > -1 ||
+			navigator.userAgent.indexOf('OPR') > -1
+		) {
+			browserName = 'Opera';
+			// "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.106"
+		} else if (navigator.userAgent.indexOf('Trident') > -1) {
+			browserName = 'Microsoft Internet Explorer';
+			// "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
+		} else if (navigator.userAgent.indexOf('Edge') > -1) {
+			browserName = 'Microsoft Edge (Legacy)';
+			// "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
+		} else if (navigator.userAgent.indexOf('Edg') > -1) {
+			browserName = 'Microsoft Edge (Chromium)';
+			// Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.64
+		} else if (navigator.userAgent.indexOf('Chrome') > -1) {
+			browserName = 'Google Chrome or Chromium';
+			// "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
+		} else if (navigator.userAgent.indexOf('Safari') > -1) {
+			browserName = 'Apple Safari';
+			// "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
+		} else {
+			browserName = 'unknown';
+		}
+
+		return browserName;
+	}
+
+	async function getLocPermission() {
+		try {
+			arr = [];
+			const locationPermission = await navigator.permissions.query({
+				name: 'geolocation'
+			});
+
+			pushToLog(locationPermission.state);
+
+			if (locationPermission.state === 'denied') {
+				pushToLog('permission denied');
+			} else {
+				try {
+					let position = await getPosition();
+
+					pushToLog('got permission ' + position.coords.latitude);
+					latitude = position?.coords?.latitude;
+					longitude = position?.coords?.longitude;
+				} catch (err) {
+					pushToLog('error in position' + err.message);
+					console.log('error in getPosition', err);
+				}
+				if (latitude == null || longitude == null) {
+					pushToLog('null lat log');
+				}
+			}
+			// locationPermission.onchange = updateHasCamsAndGeoAccess(locationPermission, false);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	function getPosition() {
+		return new Promise((resolve, reject) => {
+			try {
+				return navigator.geolocation.getCurrentPosition(
+					resolve,
+					function () {
+						pushToLog('reject callback');
+						reject({});
+					},
+					{
+						enableHighAccuracy: true,
+						timeout: 3000,
+						maximumAge: 0
+					}
+				);
+
+				// const watchId = navigator.geolocation.watchPosition(
+				//    (position) => {
+				//        // Clear the watch after getting the first position
+				//        navigator.geolocation.clearWatch(watchId);
+				//        resolve(position);
+				//    },
+				//    (error) => {
+				//        navigator.geolocation.clearWatch(watchId);
+				//        reject(error);
+				//    },
+				//    {
+				//        enableHighAccuracy: true,
+				//        timeout: 3000,
+				//        maximumAge: 0
+				//    }
+				//    );
+			} catch (err) {
+				pushToLog(err.message);
+			}
+		});
+	}
+
+	function pushToLog(str) {
+		arr.push(str);
+		document.getElementById('logs').innerHTML = arr.join(' , ');
+	}
+
+	const checkForCameraPermission = async () => {
+		try {
+			const cameraPermissionVal = await navigator.mediaDevices.getUserMedia({
+				video: true
+			});
+			if (cameraPermissionVal?.active != true) {
+				cameraPermission = false;
+			}
+			pushToLog(`camera permission in checkForCameraPermission fn: ${cameraPermission}`);
+		} catch (err) {
+			if (err.name === 'NotAllowedError') {
+				cameraPermission = false;
+			}
+			pushToLog(`camera permission err checkForCameraPermission fn: ${JSON.stringify(err)}`);
+			// alert(JSON.stringify(err));
+		}
+	};
+
+	async function getCameraPermission() {
+		const platform = getBrowserName();
+
+		if (platform === 'Mozilla Firefox' || platform === 'Apple Safari') {
+			await checkForCameraPermission();
+		} else {
+			try {
+				const cameraPermissionVal = await navigator.permissions.query({
+					name: 'camera'
+				});
+
+				pushToLog(`camera permission in getCameraPermission fn: ${cameraPermissionVal}`);
+
+				if (cameraPermissionVal?.state === 'denied') {
+					cameraPermission = false;
+				} else if (cameraPermissionVal?.state != 'granted') {
+					await checkForCameraPermission();
+				}
+			} catch (err) {
+				cameraPermission = false;
+				console.log(err);
+			}
+		}
+	}
 </script>
