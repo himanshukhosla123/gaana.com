@@ -151,9 +151,9 @@
 	async function getCameraPermission() {
 		const platform = getBrowserName();
 
-		if (platform === 'Mozilla Firefox' || platform === 'Apple Safari') {
-			await checkForCameraPermission();
-		} else {
+		// if (platform === 'Mozilla Firefox' || platform === 'Apple Safari') {
+		// 	await checkForCameraPermission();
+		// } else {
 			try {
 				const cameraPermissionVal = await navigator.permissions.query({
 					name: 'camera'
@@ -170,7 +170,7 @@
 				cameraPermission = false;
 				console.log(err);
 			}
-		}
+		// }
 	}
 
 	pushToLog(getBrowserName());
