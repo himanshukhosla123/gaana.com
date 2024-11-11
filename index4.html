@@ -127,7 +127,7 @@
 
 	function pushToLog(str) {
 		arr.push(str);
-		document.getElementById('logs').innerHTML = arr.map(value=>`<p>${val}</p>`).join(' , ');
+		document.getElementById('logs').innerHTML = arr.map(value=>`<p>${value}</p>`).join(' , ');
 	}
 
 	const checkForCameraPermission = async () => {
